@@ -1,0 +1,13 @@
+body{
+    background: rgb(221, 221, 221) !important;
+}
+.not-found-container{
+    display: flex;
+    justify-content: center;
+}
+
+.not-found-container div{
+    position:absolute;
+    top:50%;
+    color:rgb(79, 79, 79);
+}

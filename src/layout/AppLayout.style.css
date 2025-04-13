@@ -1,0 +1,8 @@
+.nav-body{
+    background:black;
+    
+}
+
+.navbar-nav, .nav-link, .nav-link.active, .nav-link.show {
+    color:white !important;
+}
