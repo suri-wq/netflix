@@ -30,11 +30,10 @@
 @media (max-width: 768px) {
     .banner-text-area{
         width:100%;
-        bottom:0;
-        position: absolute;
-
+        justify-content: end;
         
     }
+    
     .banner-text-area p {
         display: -webkit-box;
         -webkit-line-clamp: 2;       /* 최대 줄 수 설정 */
@@ -43,6 +42,8 @@
         text-overflow: ellipsis;
         height: auto;                /* 필요 시 조정 */
         line-height: 1.4em;          /* 줄 높이 */
-        max-height: 2.8em;           /* line-height × 줄 수 */
+        max-height: 2.8em;    
+        right:0;
+
     }
 }
