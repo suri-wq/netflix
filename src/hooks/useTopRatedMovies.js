@@ -9,6 +9,6 @@ export const useTopRatedMoviesQuery=()=>{
     return useQuery({
         queryKey:['movie-top-rated'],
         queryFn:fetchTopRatedMovies,
-        select:(results)=>results.data
+        select:(result)=>result.data
     })
 }
