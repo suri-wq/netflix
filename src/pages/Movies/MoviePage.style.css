@@ -30,4 +30,8 @@
     color: white !important;
     font-weight: bold;
   }
+
+  .movie-card{
+    width:100% !important;
+  }
   

@@ -68,7 +68,7 @@ const MoviePage = () => {
   return (
     <Container>
       <Row>
-        <Col lg={4} xs={12} style={{marginBottom:'20px'}}>
+        <Col lg={12} xs={12} style={{marginBottom:'20px'}}>
           <ButtonGroup>
             <DropdownButton variant='danger' as={ButtonGroup} title="인기도" id="bg-nested-dropdown">
               <Dropdown.Item eventKey="1" onClick={()=> setFilters(prev => ({ ...prev, popularity: 'desc', rating:null}))}>인기 많은 순</Dropdown.Item>
@@ -93,13 +93,14 @@ const MoviePage = () => {
               </Dropdown.Item>
             </DropdownButton>
             <Button variant='danger' onClick={()=> setFilters({genre:null, rating: null, popularity:null})}>필터 초기화</Button>
+            <Button variant='danger' onClick={()=>setQuery('')}>검색 초기화</Button>
           </ButtonGroup>
         </Col>
-        <Col lg={8} xs={12}>
+        <Col lg={12} xs={12}>
           <Row style={{ marginBottom: '20px' }}>
             {filteredAndSortedResults?.length > 0 ? (
               filteredAndSortedResults.map((movie, index) => (
-                <Col style={{ marginBottom: '10px' }} key={index} lg={3} md={4} xs={6}>
+                <Col style={{ marginBottom: '10px' }} key={index} lg={3} md={3} xs={6}>
                   <MovieCard movie={movie} />
                 </Col>
               ))

@@ -158,7 +158,7 @@ const MovieDetailPage = () => {
           <Accordion alwaysOpen>
             {review.results.map((rvww, index) => (
               <Accordion.Item key={rvww.id || index} eventKey={String(index)}>
-                <Accordion.Header>{rvww.author}</Accordion.Header>
+                <Accordion.Header><strong>name : </strong> {rvww.author}</Accordion.Header>
                 <Accordion.Body>
                   {rvww?.content || 'no reviews'}
                 </Accordion.Body>
