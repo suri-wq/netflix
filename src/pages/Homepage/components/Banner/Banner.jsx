@@ -2,7 +2,11 @@ import React from 'react'
 import { usePopularMoviesQuery } from '../../../../hooks/usePopularMovies'
 import Alert from 'react-bootstrap/Alert';
 import "./Banner.style.css"
+import { useNavigate } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
+
 const Banner = () => {
+    const navigate = useNavigate()
     const {data, isLoading, isError, error}=usePopularMoviesQuery()
     console.log("ddd",data)
     if(isLoading){
@@ -12,6 +16,12 @@ const Banner = () => {
        return <Alert variant='danger'>
        {error.message}
      </Alert>
+    }
+    const movie = data?.results?.[0]
+    const handleClick =()=>{
+      if(movie?.id){
+        navigate(`/movies/${movie.id}`)
+      }
     }
   return (
     <div>
@@ -24,6 +34,7 @@ const Banner = () => {
             <div className='text-white banner-text-area'>
                 <h1>{data?.results[0].title}</h1>
                 <p className='banner-text-overview'>{data?.results[0].overview}</p>
+                <Button variant='outline-danger' onClick={handleClick}>영화 상세보기</Button>
             </div>
         </div>
     </div>
