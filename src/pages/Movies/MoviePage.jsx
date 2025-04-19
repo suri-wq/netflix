@@ -5,7 +5,7 @@ import api from '../../utils/api'
 import { Alert, Container, Spinner, Col, Row } from 'react-bootstrap'
 import MovieCard from '../../common/MovieCard/MovieCard'
 import ReactPaginate from 'react-paginate'
-
+import './MoviePage.style.css'
 
 const MoviePage = () => {
   const [query, setQuery] = useSearchParams()
@@ -25,7 +25,7 @@ const MoviePage = () => {
         <Spinner
           animation='border'
           variant='danger'
-          style={{ width: "5rem", height:"5rem"}}
+          style={{ width: "5rem", height:"5rem", position:"absolute",left:"50%", top:"50%"}}
         />
       </div>
     )
@@ -40,7 +40,7 @@ const MoviePage = () => {
       <Row>
         <Col lg={4} xs={12}>필터</Col>
         <Col lg={8} xs={12}>
-          <Row>
+        <Row style={{ marginBottom: '20px' }}>
             {data?.results.map((movie,index)=><Col key={index} lg={4} xs={12}>
             <MovieCard movie={movie}/>
           </Col>)}
