@@ -17,8 +17,8 @@ const MovieCard = ({movie}) => {
 
     return genreNameList
   }
-  const goMovieDetail=()=>{
-
+  const handleClick=()=>{
+    navigate(`/movies/${movie.id}`)
   }
   
   return (
@@ -32,7 +32,7 @@ const MovieCard = ({movie}) => {
           : '/img/no_img.png'
         }`,
       }}
-      onClick={goMovieDetail}
+      onClick={handleClick}
       >
         <div className='overlay'>
             <h2>{movie.title}</h2>
