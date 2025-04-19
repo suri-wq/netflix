@@ -1,3 +1,7 @@
 body{
   background:black;
 }
+
+button:hover{
+  cursor: pointer;
+}

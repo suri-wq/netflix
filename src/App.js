@@ -6,6 +6,7 @@ import MovieDetailPage from './pages/MovieDetail/MovieDetailPage';
 import MoviePage from './pages/Movies/MoviePage';
 import NotFoundPage from './NotFoundPage/NotFoundPage'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import LoginPage from './pages/Login/LoginPage';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
             <Route path=":id" element={<MovieDetailPage/>}/>
             
           </Route>
+          <Route path="login" element={<LoginPage/>}/>
 
         </Route>
         <Route path="*" element={<NotFoundPage/>}/>
