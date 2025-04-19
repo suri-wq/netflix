@@ -12,7 +12,6 @@ import { responsive } from '../../constants/responsive'
 import { useMovieVideosQuery } from '../../hooks/useMovieVideos'
 import YouTube from 'react-youtube'
 import Modal from 'react-bootstrap/Modal';
-import { useMovieCreditsQuery } from '../../hooks/useMovieCredits'
 
 
 
@@ -30,9 +29,9 @@ const MovieDetailPage = () => {
     isError: vidError,
     error: vidErrMsg
   } = useMovieVideosQuery(id)
-  const {data:credits, isLoading:creditLoading, isError:creditError, error:creditErrMsg} = useMovieCreditsQuery(id)
+  
   if (
-    isLoading || reviewLoading || recLoading || vidLoading || creditLoading
+    isLoading || reviewLoading || recLoading || vidLoading
   ) {
     console.log("로딩 중 video 상태:", video) // 여기에!
     return (
@@ -45,10 +44,10 @@ const MovieDetailPage = () => {
         </div>
       )
   }
-  if (isError || reviewError || recError || vidError || creditError) {
+  if (isError || reviewError || recError || vidError) {
     return (
       <Alert variant="danger">
-        {error?.message || reviewErrMsg?.message || recErrMsg?.message || vidErrMsg?.message || creditErrMsg?.message || '알 수 없는 에러'}
+        {error?.message || reviewErrMsg?.message || recErrMsg?.message || vidErrMsg?.message || '알 수 없는 에러'}
       </Alert>
     )
   }
@@ -56,7 +55,7 @@ const MovieDetailPage = () => {
     v => v.site === 'YouTube' && v.type === 'Trailer'
   )  
   
-  console.log("crediuts", credits)
+  console.log("video results:", video)
 
   return (
     <Container>
@@ -113,18 +112,9 @@ const MovieDetailPage = () => {
               <span> {movie.production_companies[0]?.origin_country}</span>  ·
               <span> {movie.revenue.toLocaleString('en-US')} USD</span>
             </div>
-            <div className="text-white">
-              <strong>출연 </strong>
-              {credits.slice(0, 10).map((person, index) => (
-                <span key={person.id || index}>
-                  {person.name}
-                  {index < 9 && ', '}
-                </span>
-              ))}
-            </div>
-            <hr className='text-white'/>
+
             <p>{movie.overview}</p>
-            <hr className='text-white'/>
+
             <div className="d-flex gap-2 mt-3">
               <Button variant="outline-danger">보고싶어요</Button>
               <Button variant="outline-danger">평가하기</Button>
@@ -166,7 +156,7 @@ const MovieDetailPage = () => {
         <h1>Reviews</h1>
         {review?.results?.length > 0 ? (
           <Accordion alwaysOpen>
-            {review.results.slice(0,5).map((rvww, index) => (
+            {review.results.map((rvww, index) => (
               <Accordion.Item key={rvww.id || index} eventKey={String(index)}>
                 <Accordion.Header><strong>name : </strong> {rvww.author}</Accordion.Header>
                 <Accordion.Body>
