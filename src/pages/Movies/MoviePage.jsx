@@ -96,33 +96,41 @@ const MoviePage = () => {
           </ButtonGroup>
         </Col>
         <Col lg={8} xs={12}>
-        <Row style={{ marginBottom: '20px' }}>
-            {filteredAndSortedResults?.map((movie,index)=><Col style={{marginBottom:'10px'}} key={index} lg={3} md={4} xs={6}>
-            <MovieCard movie={movie}/>
-          </Col>)}
+          <Row style={{ marginBottom: '20px' }}>
+            {filteredAndSortedResults?.length > 0 ? (
+              filteredAndSortedResults.map((movie, index) => (
+                <Col style={{ marginBottom: '10px' }} key={index} lg={3} md={4} xs={6}>
+                  <MovieCard movie={movie} />
+                </Col>
+              ))
+            ) : (
+              <p>결과가 없습니다.</p>
+            )}
           </Row>
         </Col>
+        {filteredAndSortedResults?.length > 0 && (
           <ReactPaginate
-          nextLabel={<span>&raquo;</span>}
-          onPageChange={handlePageClick}
-          pageRangeDisplayed={3}
-          marginPagesDisplayed={2}
-          pageCount={data?.total_pages || 0, 500}
-          previousLabel={<span>&laquo;</span>}
-          pageClassName="page-item"
-          pageLinkClassName="page-link"
-          previousClassName="page-item"
-          previousLinkClassName="page-link"
-          nextClassName="page-item"
-          nextLinkClassName="page-link"
-          breakLabel="..."
-          breakClassName="page-item"
-          breakLinkClassName="page-link"
-          containerClassName="pagination"
-          activeClassName="active"
-          renderOnZeroPageCount={null}
-          forcePage={page-1}
+            nextLabel="next >"
+            onPageChange={handlePageClick}
+            pageRangeDisplayed={3}
+            marginPagesDisplayed={2}
+            pageCount={data?.total_pages}
+            previousLabel="< previous"
+            pageClassName="page-item"
+            pageLinkClassName="page-link"
+            previousClassName="page-item"
+            previousLinkClassName="page-link"
+            nextClassName="page-item"
+            nextLinkClassName="page-link"
+            breakLabel="..."
+            breakClassName="page-item"
+            breakLinkClassName="page-link"
+            containerClassName="pagination justify-content-center"
+            activeClassName="active"
+            forcePage={page-1}
           />
+        )}
+          
       </Row>
 
     </Container>

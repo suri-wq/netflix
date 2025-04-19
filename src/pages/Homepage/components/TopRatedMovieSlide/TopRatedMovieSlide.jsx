@@ -9,7 +9,7 @@ const TopRatedMovieSlide = () => {
     const {data, isLoading, isError, error}= useTopRatedMoviesQuery()
     
     if(isLoading){
-        return <h1>Loading...</h1>
+        return <h1 className='text-muted'>Loading...</h1>
     }
     if(isError){
         return <Alert variant="danger">{error.message}</Alert>

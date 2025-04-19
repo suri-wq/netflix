@@ -1,5 +1,5 @@
-import React from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import React, { useState } from 'react'
+import { useParams } from 'react-router-dom'
 import { useMovieDetailQuery } from '../../hooks/useMovieDetail'
 import { Alert, Spinner, Container, Col, Row, Button, Badge } from 'react-bootstrap'
 import './MovieDetailPage.style.css'
@@ -9,14 +9,33 @@ import Accordion from 'react-bootstrap/Accordion';
 import { useMovieRecommendationsQuery } from '../../hooks/useMovieRecommendations'
 import MovieSlider from '../../common/MovieSlider/MovieSlider'
 import { responsive } from '../../constants/responsive'
+import { useMovieVideosQuery } from '../../hooks/useMovieVideos'
+import YouTube from 'react-youtube'
+import Modal from 'react-bootstrap/Modal';
+
+
 
 const MovieDetailPage = () => {
   const {id} = useParams()
+  const [show, setShow] = useState(false)
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const { data: movie, isLoading, isError, error} = useMovieDetailQuery(id)
   const { data: review, isLoading: reviewLoading, isError: reviewError, error: reviewErrMsg} = useMovieReviewQuery(id)
   const { data: movie_recommendations, isLoading: recLoading, isError: recError, error: recErrMsg} = useMovieRecommendationsQuery(id)
-  if (isLoading || reviewLoading || recLoading) return(
-        <div>
+  const {
+    data: video,
+    isLoading: vidLoading,
+    isError: vidError,
+    error: vidErrMsg
+  } = useMovieVideosQuery(id)
+  
+  if (
+    isLoading || reviewLoading || recLoading || vidLoading
+  ) {
+    console.log("로딩 중 video 상태:", video) // 여기에!
+    return (
+      <div>
           <Spinner
             animation='border'
             variant='danger'
@@ -24,9 +43,19 @@ const MovieDetailPage = () => {
           />
         </div>
       )
-  if (isError || reviewError || recError) return <Alert variant="danger">{error.message || reviewErrMsg.message || recErrMsg.message}</Alert>
+  }
+  if (isError || reviewError || recError || vidError) {
+    return (
+      <Alert variant="danger">
+        {error?.message || reviewErrMsg?.message || recErrMsg?.message || vidErrMsg?.message || '알 수 없는 에러'}
+      </Alert>
+    )
+  }
+  const trailer = video?.results?.find(
+    v => v.site === 'YouTube' && v.type === 'Trailer'
+  )  
   
-  console.log("rrr",movie_recommendations)
+  console.log("video results:", video)
 
   return (
     <Container>
@@ -87,8 +116,35 @@ const MovieDetailPage = () => {
             <p>{movie.overview}</p>
 
             <div className="d-flex gap-2 mt-3">
-              <Button variant="danger">보고싶어요</Button>
+              <Button variant="outline-danger">보고싶어요</Button>
               <Button variant="outline-danger">평가하기</Button>
+              <Button variant="warning" onClick={handleShow}>
+                예고편 재생
+              </Button>
+              <Modal show={show} onHide={handleClose} size="lg" centered>
+                <Modal.Header closeButton>
+                  <Modal.Title>{trailer?.name || '예고편'}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body style={{ padding: 0 }}>
+                  {trailer ? (
+                    <YouTube
+                      videoId={trailer.key}
+                      opts={{
+                        width: '100%',
+                        height: '400',
+                        playerVars: {
+                          autoplay: 1,
+                          rel: 0,
+                          modestbranding: 1
+                        }
+                      }}
+                    />
+                  ) : (
+                    <p className="text-muted p-3">예고편이 없습니다.</p>
+                  )}
+                </Modal.Body>
+              </Modal>
+
             </div>
           </div>
         </Col>
@@ -122,7 +178,7 @@ const MovieDetailPage = () => {
 
         </Col>
       </Row>
-     
+      
     </Container>
 
   )
