@@ -7,10 +7,10 @@ import UpcomingMovieSlide from './components/UpcomingMovieSlide/UpcomingMovieSli
 const Homepage = () => {
   return (
     <div>
-        <Banner/>
-        <PopularMovieSlide/>
-        <TopRatedMovieSlide/>
-        <UpcomingMovieSlide/>
+      <Banner />
+      <PopularMovieSlide />
+      <TopRatedMovieSlide />
+      <UpcomingMovieSlide />
     </div>
   )
 }
