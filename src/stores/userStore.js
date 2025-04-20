@@ -1,8 +1,9 @@
 import { create } from 'zustand'
 
 const userStore = create((set) => ({
-  user: '',
-  increase: () => set((state) => ({ count: state.count + 1 })),
+  user: null,
+  login: (userData) => set({ user: userData }),
+  logout: () => set({ user: null }),
 }))
 
 export default userStore

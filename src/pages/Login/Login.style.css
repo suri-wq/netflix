@@ -1,0 +1,49 @@
+body {
+  margin: 0 auto;
+}
+.login-container {
+  width: 100vw;
+  height: 100vh;
+  background-image: url('https://preview.redd.it/so-about-3-days-ago-i-posted-a-wallpaper-of-all-horror-v0-lg9m4qag3xq81.jpg?width=1080&crop=smart&auto=webp&s=2647b106de9d2ec1dd1afdc3ff009c429d70fbbe') !important;
+  background-size: cover;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login-container::after {
+  content: '';
+  position: absolute;
+  background: black;
+  z-index: -1;
+  inset: 0;
+  opacity: 0.7;
+  padding: 0;
+  margin: 0 !important;
+}
+
+.login-wrap {
+  width: 400px;
+  height: 400px;
+  background-color: black;
+  opacity: 0.7;
+  padding: 50px;
+}
+
+.email-input,
+.password-input {
+  width: 100%;
+}
+
+.form-color-ctrl {
+  background-color: gray;
+  color: white;
+}
+
+.form-floating > label {
+  color: white;
+}
+.form-floating > label:focus {
+  color: black !important;
+}

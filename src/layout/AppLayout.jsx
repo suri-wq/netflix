@@ -6,9 +6,7 @@ import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import { Link, Outlet, useNavigate } from 'react-router-dom'
 import './AppLayout.style.css'
-import userStore from '../stores/userStore'
 const AppLayout = () => {
-  const { user } = userStore()
   const [keyword, setKeyword] = useState('')
   const navigate = useNavigate()
   const searchByKeyword = (event) => {
@@ -16,6 +14,9 @@ const AppLayout = () => {
     // url을 바꿔주기
     navigate(`/movies?q=${keyword}`)
     setKeyword('')
+  }
+  const loginPage = () => {
+    navigate('/login')
   }
   return (
     <div>
@@ -64,11 +65,22 @@ const AppLayout = () => {
                 value={keyword}
                 onChange={(event) => setKeyword(event.target.value)}
               />
-              <Button variant="outline-danger" type="submit">
+              <Button
+                className="btn-border-radius"
+                variant="outline-danger"
+                type="submit"
+              >
                 Search
               </Button>
             </Form>
-            <Link>{user}</Link>
+            <Button
+              variant="light"
+              style={{ marginLeft: '10px' }}
+              onClick={loginPage}
+              className="btn-border-radius"
+            >
+              Sign In
+            </Button>
           </Navbar.Collapse>
         </Container>
       </Navbar>
