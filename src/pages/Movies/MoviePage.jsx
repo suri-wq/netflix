@@ -20,6 +20,9 @@ const MoviePage = () => {
   })
   const [page, setPage] = useState(1)
   const keyword = query.get('q')
+  useEffect(() => {
+    setPage(1)
+  }, [keyword, filters])
 
   const { data, isLoading, isError, error } = useSearchMovieQuery({
     keyword,
